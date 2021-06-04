@@ -10,7 +10,10 @@ if [ -f "$FILE" ]; then
     moduleDir=$(mkdir "$INDEXDIR""$moduleName")
     echo "scraping data from $moduleName"
     
-    moduleDes=$(touch "$INDEXDIR""$moduleName"/module.txt)
+    sudo touch "$INDEXDIR""$moduleName"/module.txt
+    moduleDes="$INDEXDIR""$moduleName"/module.txt
+    chmod 777 "$moduleDes"
+     sudo cat $FILE >> $moduleDes
      
     echo "searching for readme file"
 
@@ -20,29 +23,26 @@ if [ -f "$FILE" ]; then
     if [ $F == *.MD ]; then 
       echo "Readme Found"
     sudo touch "$INDEXDIR""$moduleName"/README.md
-       readmedest="$INDEXDIR""$moduleName"/README.md
-        chmod -rwx "$readmedest"
-        echo "$readmedest"
-        sudo cat $F >> $readmedest
+       readmedst="$INDEXDIR""$moduleName"/README.md
+        chmod 777 "$readmedst"
+        echo "$readmedst"
+        sudo cat $F >> $readmedst
         
     elif [ $F == *.md ]; then
         echo "Readme Found"
        sudo touch "$INDEXDIR""$moduleName"/README.md
-        readmedest="$INDEXDIR""$moduleName"/README.md
-        chmod -rwx "$readmedest"
-        echo "$readmedest"
-        sudo cat $F >> $readmedest
+        readmedst="$INDEXDIR""$moduleName"/README.md
+        chmod 777 "$readmedst"
+        echo "$readmedst"
+        sudo cat $F >> $readmedst
         
     elif [ $F == *.markdown ]; then
        echo "Readme Found"
      sudo touch "$INDEXDIR""$moduleName"/README.md
-       readmedest="$INDEXDIR""$moduleName"/README.md
-        chmod -rwx "$readmedest"
-        echo "$readmedest"
-        sudo cat $F >> $readmedest
-        
-    else 
-      echo "No Readme file Found"
+       readmedst="$INDEXDIR""$moduleName"/README.md
+        chmod 777 "$readmedst"
+        echo "$readmedst"
+        sudo cat $F >> $readmedst
     fi 
     done 
    
@@ -53,11 +53,14 @@ if [ -f "$FILE" ]; then
      
         logodst="$INDEXDIR""$moduleName"
         sudo cp $logoSrc $logodst
+        echo "Logo Image copy done"
         
     elif [ -f "$coverSrc" ]; then
      
         coverdst="$INDEXDIR""$moduleName"
         sudo cp  $coverSrc $coverdst
+
+        echo "Cover Image copy done"
 
     else
        echo "LOGO or COVER image not found"
