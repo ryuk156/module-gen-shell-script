@@ -1,20 +1,18 @@
-#!/bin/sh
+#!/bin/bash
 
 INDEXDIR="../meta-data/"
 FILE="./module.txt"
 
 if [ -f "$FILE" ]; then
     echo "$FILE exists."
-    moduleName=$(cat "$FILE"|jq '.["id"]' |sed -e 's/^"//' -e 's/"$//')
+    moduleName=$(cat "$FILE"|  grep -oP '(?<="id": ")[^"]*' | head -n1 )
     echo $moduleName
     moduleDir=$(mkdir "$INDEXDIR""$moduleName")
     echo "scraping data from $moduleName"
     
-    sudo touch "$INDEXDIR""$moduleName"/module.txt
+    touch "$INDEXDIR""$moduleName"/module.txt
     moduleDes="$INDEXDIR""$moduleName"/module.txt
-    chmod 777 "$moduleDes"
-     sudo cat $FILE >> $moduleDes
-     
+    cat $FILE > "$moduleDes"
     echo "searching for readme file"
 
 
@@ -22,27 +20,25 @@ if [ -f "$FILE" ]; then
     do 
     if [ $F == *.MD ]; then 
       echo "Readme Found"
-    sudo touch "$INDEXDIR""$moduleName"/README.md
+       touch "$INDEXDIR""$moduleName"/README.md
        readmedst="$INDEXDIR""$moduleName"/README.md
-        chmod 777 "$readmedst"
         echo "$readmedst"
-        sudo cat $F >> $readmedst
+        cat $F > "$readmedst"
         
     elif [ $F == *.md ]; then
         echo "Readme Found"
-       sudo touch "$INDEXDIR""$moduleName"/README.md
+        touch "$INDEXDIR""$moduleName"/README.md
         readmedst="$INDEXDIR""$moduleName"/README.md
-        chmod 777 "$readmedst"
+       
         echo "$readmedst"
-        sudo cat $F >> $readmedst
+        cat $F > "$readmedst"
         
     elif [ $F == *.markdown ]; then
        echo "Readme Found"
-     sudo touch "$INDEXDIR""$moduleName"/README.md
+     touch "$INDEXDIR""$moduleName"/README.md
        readmedst="$INDEXDIR""$moduleName"/README.md
-        chmod 777 "$readmedst"
         echo "$readmedst"
-        sudo cat $F >> $readmedst
+         cat $F > "$readmedst"
     fi 
     done 
    
@@ -52,13 +48,13 @@ if [ -f "$FILE" ]; then
     if [ -f "$logoSrc" ]; then
      
         logodst="$INDEXDIR""$moduleName"
-        sudo cp $logoSrc $logodst
+         cp $logoSrc $logodst
         echo "Logo Image copy done"
         
     elif [ -f "$coverSrc" ]; then
      
         coverdst="$INDEXDIR""$moduleName"
-        sudo cp  $coverSrc $coverdst
+         cp  $coverSrc $coverdst
 
         echo "Cover Image copy done"
 
