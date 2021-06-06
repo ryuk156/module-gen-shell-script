@@ -5,7 +5,7 @@ DST="./modules"
 
 mkdir "$DST"
 
-for i in $(ls -d ../meta-data/*); do
+for i in $(ls -d ./meta-data/*); do
 
   moduleFile="$i"/module.txt
   if [ -f "$moduleFile" ]; then
