@@ -4,7 +4,6 @@ pipeline{
         stage('init'){
             steps{
               echo "start the process"
-              
             }            
         }
         stage('gather data'){
@@ -17,8 +16,7 @@ pipeline{
         stage('generate frontmatter'){
            steps{
             sh "bash ./frontmatter.sh"   
-        }
+           }
+        }   
     }
-     
-}
 }

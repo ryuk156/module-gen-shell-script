@@ -1,18 +1,14 @@
 #!/bin/bash
 
-
-
 allRepos=()
 
-fetch(){
+fetch() {
     for i in {1..3}; do
-    getRepos=$(curl -s "https://api.github.com/orgs/terasology/repos?q=&per_page=1&sort=name&page=$i")
-    parseData=$(echo "$getRepos" | grep -oP '(?<="name": ")[^"]*')
-    allRepos+=("$parseData")
+        getRepos=$(curl -s "https://api.github.com/orgs/terasology/repos?q=&per_page=1&sort=name&page=$i")
+        parseData=$(echo "$getRepos" | grep -oP '(?<="name": ")[^"]*')
+        allRepos+=("$parseData")
     done
-
     return $allRepos
-   
 }
 
 fetch
@@ -27,11 +23,8 @@ mkdir clonedrepos
 cd clonedrepos
 
 for value in "${allRepos[@]}"; do
-   git clone https://github.com/Terasology/$value
-   cd $value
-   ../../scrape.sh
-   cd ..
+    git clone https://github.com/Terasology/$value
+    cd $value
+    ../../scrape.sh
+    cd ..
 done
-
-
-
