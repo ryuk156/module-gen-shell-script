@@ -30,6 +30,7 @@ for value in "${allRepos[@]}"; do
    git clone https://github.com/Terasology/$value
    cd $value
    ../../scrape.sh
+   cd ..
 done
 
 
