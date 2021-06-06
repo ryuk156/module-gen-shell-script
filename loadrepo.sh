@@ -13,9 +13,9 @@ fetch() {
 
 fetch
 
-for value in "${allRepos[@]}"; do
-    echo "$value"
-done
+# for value in "${allRepos[@]}"; do
+#     echo "$value"
+# done
 
 mkdir meta-data
 mkdir clonedrepos
@@ -23,7 +23,7 @@ mkdir clonedrepos
 cd clonedrepos
 
 for value in "${allRepos[@]}"; do
-    git clone https://github.com/Terasology/${value}
+    git clone "https://github.com/Terasology/${value}"
     cd "$value"
     ../../scrape.sh
     cd ..
