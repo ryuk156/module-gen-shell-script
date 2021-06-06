@@ -4,22 +4,21 @@ pipeline{
         stage('init'){
             steps{
               echo "start the process"
-              
+              cleanWs()
             }            
         }
         stage('gather data'){
             steps{
-           echo "gather all data"
+          script{
+            sh "bash ./loadrepo.sh"
+               }
             }    
         }
         stage('generate frontmatter'){
            steps{
-               script{
-            sh "bash ./loadrepo.sh"
-               }
-           
+            sh "bash ./frontmatter.sh"   
         }
-
     }
+     
 }
 }
