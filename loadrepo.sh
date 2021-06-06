@@ -27,7 +27,7 @@ mkdir clonedrepos
 cd clonedrepos
 
 for value in "${allRepos[@]}"; do
-   git clone https://github.com/Terasology/${value}.git
+   git clone https://github.com/Terasology/$value
    cd $value
    ./scrape.sh
 done
