@@ -20,7 +20,7 @@ if [ -f "$FILE" ]; then
   READMEmarkdown="README.markdown"
   readmeFound=0
   for F in *; do
-    if [ $F == "$READMEMD" ] || [ $F == "$READMEmd" ] || [ $F == "$READMEmarkdown" ]; then
+    if [ "$F" == "$READMEMD" ] || [ "$F" == "$READMEmd" ] || [ "$F" == "$READMEmarkdown" ]; then
       echo "Readme Found"
       touch "$INDEXDIR""$moduleName"/README.md
       readmedst="$INDEXDIR""$moduleName"/README.md
