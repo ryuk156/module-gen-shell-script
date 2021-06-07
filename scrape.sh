@@ -1,12 +1,11 @@
 #!/bin/bash
 
-
-INDEXDIR="../../meta-data/"
+INDEXDIR="../meta-data/"
 FILE="./module.txt"
 
 if [ -f "$FILE" ]; then
   echo "$FILE exists."
-  moduleName=$(cat "$FILE"  | grep -Po '"id" *\K: *\K"[^"]*"' | sed 's/"//g'| head -n1)
+  moduleName=$(cat "$FILE" | grep -Po '"id" *\K: *\K"[^"]*"' | sed 's/"//g' | head -n1)
   echo $moduleName
   mkdir "$INDEXDIR""$moduleName"
   echo "scraping data from $moduleName"
@@ -16,30 +15,25 @@ if [ -f "$FILE" ]; then
   cat $FILE >"$moduleDes"
   echo "searching for readme file"
 
+  READMEMD="README.MD"
+  READMEmd="README.md"
+  READMEmarkdown="README.markdown"
+  readmeFound=0
   for F in *; do
-    if [ $F == *.MD ]; then
+    if [ $F == "$READMEMD" ] || [ $F == "$READMEmd" ] || [ $F == "$READMEmarkdown" ]; then
       echo "Readme Found"
       touch "$INDEXDIR""$moduleName"/README.md
       readmedst="$INDEXDIR""$moduleName"/README.md
       echo "$readmedst"
       cat $F >"$readmedst"
-
-    elif [ $F == *.md ]; then
-      echo "Readme Found"
-      touch "$INDEXDIR""$moduleName"/README.md
-      readmedst="$INDEXDIR""$moduleName"/README.md
-
-      echo "$readmedst"
-      cat $F >"$readmedst"
-
-    elif [ $F == *.markdown ]; then
-      echo "Readme Found"
-      touch "$INDEXDIR""$moduleName"/README.md
-      readmedst="$INDEXDIR""$moduleName"/README.md
-      echo "$readmedst"
-      cat $F >"$readmedst"
+      readmeFound=readmeFound+1
     fi
   done
+
+  if [ $readmeFound == 0 ]; then
+   echo "Readme Not Found" 
+  fi
+     
 
   logoSrc="./logo.png"
   coverSrc="./cover.png"
@@ -53,7 +47,7 @@ if [ -f "$FILE" ]; then
     coverdst="$INDEXDIR""$moduleName"
     cp $coverSrc $coverdst
     echo "Cover Image copy done"
-    
+
   else
     echo "LOGO or COVER image not found"
   fi
