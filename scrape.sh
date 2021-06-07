@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-INDEXDIR="../meta-data/"
+INDEXDIR="../../meta-data/"
 FILE="./module.txt"
 
 if [ -f "$FILE" ]; then

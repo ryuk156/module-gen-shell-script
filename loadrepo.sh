@@ -32,8 +32,8 @@ for value in "${allrepos[@]}"; do
 #        pwd
 #        cd ..
 
-        cleanvalue=$(echo "${value}" | grep -v "^$")
-        echo "${cleanvalue}"
+        # cleanvalue=$(echo "${value}" | grep -v "^$")
+        # echo "${cleanvalue}"
         git clone "https://github.com/Terasology/${value//$'\n'/}"
         cd "${value//$'\n'/}"
         ../../scrape.sh

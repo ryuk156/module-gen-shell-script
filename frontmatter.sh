@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR="../../meta-data"
+DIR="./meta-data"
 DST="./modules"
 
 mkdir "$DST"
