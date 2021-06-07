@@ -1,6 +1,6 @@
 #!/bin/bash
 
-INDEXDIR="../meta-data/"
+INDEXDIR="../../meta-data/"
 FILE="./module.txt"
 
 if [ -f "$FILE" ]; then
@@ -31,9 +31,8 @@ if [ -f "$FILE" ]; then
   done
 
   if [ $readmeFound == 0 ]; then
-   echo "Readme Not Found" 
+    echo "Readme Not Found"
   fi
-     
 
   logoSrc="./logo.png"
   coverSrc="./cover.png"
