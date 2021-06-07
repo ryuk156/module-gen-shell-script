@@ -4,7 +4,6 @@ pipeline {
         stage('init') {
             steps {
                 echo 'start the process'
-            cleanWs()
             }
         }
         stage('gather data') {
