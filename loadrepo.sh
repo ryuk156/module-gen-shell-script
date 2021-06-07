@@ -16,7 +16,7 @@ done
 readarray allrepos < allmodules.txt
 
 for row in "${allrepos[@]}"; do
-        echo "$row"
+        echo "${row}" | grep -v "^$" 
 done
 
 mkdir meta-data
@@ -25,8 +25,8 @@ mkdir clonedrepos
 cd clonedrepos
 
 for value in "${allrepos[@]}"; do
-
-        git clone "https://github.com/Terasology/${value}"
+        cleanvalue=$(echo "${value}" | grep -v "^$")
+        git clone "https://github.com/Terasology/${cleanvalue}"
         cd "${value}"
         ../../scrape.sh
         cd ..
