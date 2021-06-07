@@ -1,12 +1,12 @@
 #!/bin/bash
 
 
-INDEXDIR="../../meta-data/"
+INDEXDIR="../meta-data/"
 FILE="./module.txt"
 
 if [ -f "$FILE" ]; then
   echo "$FILE exists."
-  moduleName=$(cat "$FILE" | grep -Po '"id": *\K"[^"]*"' |sed 's/"//g'| head -n1)
+  moduleName=$(cat "$FILE"  | grep -Po '"id" *\K: *\K"[^"]*"' | sed 's/"//g'| head -n1)
   echo $moduleName
   mkdir "$INDEXDIR""$moduleName"
   echo "scraping data from $moduleName"

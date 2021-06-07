@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR="./meta-data"
+DIR="../../meta-data"
 DST="./modules"
 
 mkdir "$DST"
@@ -9,10 +9,10 @@ for i in $(ls -d ./meta-data/*); do
 
   moduleFile="$i"/module.txt
   if [ -f "$moduleFile" ]; then
-    moduleName=$(cat "$moduleFile" | grep -Po '"id": *\K"[^"]*"' |sed 's/"//g' | head -n1)
-    moduleAuthor=$(cat "$moduleFile" | grep -Po '"author": *\K"[^"]*"' |sed 's/"//g')
-    moduleDisplayname=$(cat "$moduleFile" | grep -Po '"displayName": *\K"[^"]*"' |sed 's/"//g')
-    moduleDescription=$(cat "$moduleFile" | grep -Po '"description": *\K"[^"]*"' |sed 's/"//g')
+    moduleName=$(cat "$moduleFile" |  grep -Po '"id" *\K: *\K"[^"]*"' |sed 's/"//g' | head -n1)
+    moduleAuthor=$(cat "$moduleFile" |  grep -Po '"author" *\K: *\K"[^"]*"' |sed 's/"//g')
+    moduleDisplayname=$(cat "$moduleFile" | grep -Po '"displayName" *\K: *\K"[^"]*"' |sed 's/"//g')
+    moduleDescription=$(cat "$moduleFile" | grep -Po '"description" *\K: *\K"[^"]*"' |sed 's/"//g')
     moduleLogo="$i"/logo.png
     modulecover="$i"/cover.png
     modulereadme="$i"/README.md
