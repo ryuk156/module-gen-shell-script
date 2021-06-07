@@ -38,12 +38,8 @@ for value in "${allrepos[@]}"; do
         # echo "${cleanvalue}"
         git clone "https://github.com/Terasology/${value//$'\n'/}"
         cd "${value//$'\n'/}"
+        ../../scrape.sh
         cd ..
 done
 
 
-for d in * ; do
-    cd $d
-    ../../scrape.sh
-    cd ..
-done

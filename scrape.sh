@@ -8,7 +8,7 @@ if [ -f "$FILE" ]; then
   echo "$FILE exists."
   moduleName=$(cat "$FILE" | grep -oP '(?<="id": ")[^"]*' | head -n1)
   echo $moduleName
-  moduleDir=$(mkdir "$INDEXDIR""$moduleName")
+  mkdir "$INDEXDIR""$moduleName"
   echo "scraping data from $moduleName"
 
   touch "$INDEXDIR""$moduleName"/module.txt
