@@ -9,10 +9,10 @@ for i in $(ls -d ./meta-data/*); do
 
   moduleFile="$i"/module.txt
   if [ -f "$moduleFile" ]; then
-    moduleName=$(cat "$moduleFile" | grep -oP '(?<="id": ")[^"]*' | head -n1)
-    moduleAuthor=$(cat "$moduleFile" | grep -oP '(?<="author": ")[^"]*')
-    moduleDisplayname=$(cat "$moduleFile" | grep -oP '(?<="displayName": ")[^"]*')
-    moduleDescription=$(cat "$moduleFile" | grep -oP '(?<="description": ")[^"]*')
+    moduleName=$(cat "$moduleFile" | grep -Po '"id": *\K"[^"]*"' |sed 's/"//g' | head -n1)
+    moduleAuthor=$(cat "$moduleFile" | grep -Po '"author": *\K"[^"]*"' |sed 's/"//g')
+    moduleDisplayname=$(cat "$moduleFile" | grep -Po '"displayName": *\K"[^"]*"' |sed 's/"//g')
+    moduleDescription=$(cat "$moduleFile" | grep -Po '"description": *\K"[^"]*"' |sed 's/"//g')
     moduleLogo="$i"/logo.png
     modulecover="$i"/cover.png
     modulereadme="$i"/README.md
@@ -22,6 +22,7 @@ for i in $(ls -d ./meta-data/*); do
     echo "---" >"$DST"/"$moduleName"/index.md
     echo "posttype:  \"module\"  " >>"$DST"/"$moduleName"/index.md
     echo "title: \"$moduleDisplayname\"" >>"$DST"/"$moduleName"/index.md
+    echo "author: \"$moduleAuthor\"" >>"$DST"/"$moduleName"/index.md
 
     if [ -f "$moduleLogo" ]; then
       cp $moduleLogo "$DST"/"$moduleName"

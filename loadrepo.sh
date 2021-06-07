@@ -4,9 +4,10 @@ touch allmodules.txt
 
 for i in {1..3}; do
         getRepos=$(curl -s "https://api.github.com/orgs/terasology/repos?q=&per_page=100&sort=name&page=$i")
-        parseData=$(echo "$getRepos" | grep -oP '(?<="full_name": "Terasology/)[^"]*')
-        echo "$parseData" >> allmodules.txt
-      
+        parseData=$(echo "$getRepos" | grep -oP '(?<="full_name": "Terasology/)[^"]*' )
+        echo "$parseData"  >> allmodules.txt
+       
+     
 done
 
 readarray allrepos < allmodules.txt
@@ -31,8 +32,8 @@ for value in "${allrepos[@]}"; do
 #        pwd
 #        cd ..
 
-        # cleanvalue=$(echo "${value}" | grep -v "^$")
-        # echo "${cleanvalue}"
+        cleanvalue=$(echo "${value}" | grep -v "^$")
+        echo "${cleanvalue}"
         git clone "https://github.com/Terasology/${value//$'\n'/}"
         cd "${value//$'\n'/}"
         ../../scrape.sh

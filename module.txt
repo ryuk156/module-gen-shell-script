@@ -1,22 +1,20 @@
 {
-  "id": "Inventory",
-  "version": "1.5.0-SNAPSHOT",
-  "isReleaseManaged": true,
-  "displayName": "Core Inventory",
-  "author": "The Terasology Foundation",
-  "description": "This module adds a standard and simple inventory system as well as hooks for other modules",
+  "id": "Books",
+  "version": "1.2.0-SNAPSHOT",
+  "author": "nihal111, bi0hax, Waterpicker",
+  "displayName": "Books and Bookcases",
+  "description": "This module introduces logic and assets for books and bookcases",
   "dependencies": [
     {
       "id": "CoreAssets",
-      "minVersion": "2.0.0",
-      "optional": true
+      "minVersion": "2.0.1"
     },
     {
-      "id": "ModuleTestingEnvironment",
-      "minVersion": "0.2.0",
-      "optional": true
+      "id": "Inventory",
+      "minVersion": "1.1.0"
     }
   ],
-  "isLibrary": true,
-  "isAugmentation": true
+  "isServerSideOnly": false,
+  "isAsset": true,
+  "isLibrary": true
 }
