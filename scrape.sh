@@ -53,5 +53,4 @@ if [ -f "$FILE" ]; then
 
 else
   echo "The repository is not module"
-
 fi
