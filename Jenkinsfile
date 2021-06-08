@@ -4,6 +4,7 @@ pipeline {
         stage('init') {
             steps {
                 echo 'start the process'
+                cleanWs()
             }
         }
         stage('gather data') {
@@ -31,7 +32,7 @@ pipeline {
              git config --global user.name "ryuk156"
              git add .              
 	         git commit -m "push all mosules"
-             git push https://${GIT_CREDS_USR}:${GIT_CREDS_PSW}@github.com/${GIT_CREDS_USR}/build_process.git build_process -f   
+             git push https://${GIT_CREDS_USR}:${GIT_CREDS_PSW}@github.com/${GIT_CREDS_USR}/ModuleSite.git build_process -f   
             '''
                 
             }
