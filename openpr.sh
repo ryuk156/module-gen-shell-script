@@ -28,12 +28,12 @@ done
 
 shift $((OPTIND - 1))
 
-if [[ $current_branch == 'master' ]]; then
-  echo "You're already on master, create a new branch, push it, and then run this script" >&2
-  exit 1
-  else
-  echo "$current_branch"
-fi
+# if [[ $current_branch == 'master' ]]; then
+#   echo "You're already on master, create a new branch, push it, and then run this script" >&2
+#   exit 1
+#   else
+#   echo "$current_branch"
+# fi
 
 check_is_set() {
   if [[ -z $2 ]]; then
@@ -52,7 +52,7 @@ data=$(cat <<-END
 {
   "title": "$title",
   "base": "master",
-  "head": "$current_branch",
+  "head": "module_gen",
   "body": "$@"
 }
 END
