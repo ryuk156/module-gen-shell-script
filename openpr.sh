@@ -31,6 +31,8 @@ shift $((OPTIND - 1))
 if [[ $current_branch == 'master' ]]; then
   echo "You're already on master, create a new branch, push it, and then run this script" >&2
   exit 1
+  else
+  echo "$current_branch"
 fi
 
 check_is_set() {
