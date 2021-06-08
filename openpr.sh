@@ -52,13 +52,13 @@ data=$(cat <<-END
 {
   "title": "$title",
   "base": "master",
-  "head": "ryuk156:module_gen",
-  "body": "$@"
+  "head": "module_gen",
+  "body": "module gen"
 }
 END
 )
 
-curl -s --user "$username:$password" -X POST "https://api.github.com/repos/ryuk156/ModuleSite/pulls" -d "$data" 
+curl -u "$username:$password" -X POST "https://api.github.com/repos/ryuk156/ModuleSite/pulls" -d "$data" 
 
 # if [[ $status_code == "201" ]]; then
 #   echo "Complete!"
