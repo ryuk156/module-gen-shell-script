@@ -4,6 +4,7 @@ pipeline {
         stage('init') {
             steps {
                 echo 'start the process'
+                cleanWs()
             }
         }
         stage('gather data') {
@@ -23,8 +24,16 @@ pipeline {
 		       GIT_CREDS = credentials('GIT')
 		    }
             steps {
-            sh"bash curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh"
-            sh"brew install hub"
+
+            sh'''
+
+            git clone https://github.com/Homebrew/brew ~/.linuxbrew/Homebrew
+            mkdir ~/.linuxbrew/bin
+            ln -s ~/.linuxbrew/Homebrew/bin/brew ~/.linuxbrew/bin
+            eval $(~/.linuxbrew/bin/brew shellenv)
+            brew install hub
+            '''
+           
             sh 'bash ./loadmodules.sh'
             sh '''
 	         cd ./module-site/ModuleSite
