@@ -4,6 +4,7 @@ pipeline {
         stage('init') {
             steps {
                 echo 'start the process'
+                cleanWs()
             }
         }
         stage('gather data') {
@@ -16,6 +17,11 @@ pipeline {
         stage('generate frontmatter') {
             steps {
                 sh 'bash ./frontmatter.sh'
+            }
+        }
+         stage('push data to module site') {
+            steps {
+                sh 'bash ./loadmodules.sh'
             }
         }
     }
