@@ -4,7 +4,7 @@ pipeline {
         stage('init') {
             steps {
                 echo 'start the process'
-               
+                cleanWs()
             }
         }
         stage('gather data') {
@@ -25,14 +25,7 @@ pipeline {
 		    }
             steps {
 
-            sh'''
-
-            git clone https://github.com/Homebrew/brew ~/.linuxbrew/Homebrew
-            mkdir ~/.linuxbrew/bin
-            ln -s ~/.linuxbrew/Homebrew/bin/brew ~/.linuxbrew/bin
-            eval $(~/.linuxbrew/bin/brew shellenv)
-            brew install hub
-            '''
+            
            
             sh 'bash ./loadmodules.sh'
             sh '''
