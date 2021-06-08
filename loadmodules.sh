@@ -4,7 +4,6 @@ DATE=$(date)
 
 
 
-
 mkdir $MODULEDIR
 cd $MODULEDIR
 
