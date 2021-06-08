@@ -4,7 +4,7 @@ pipeline {
         stage('init') {
             steps {
                 echo 'start the process'
-               
+               cleanWs()
                 
             }
         }
@@ -35,6 +35,7 @@ pipeline {
              git add .              
 	         git commit -m "push all modules"
              git push https://${GIT_CREDS_USR}:${GIT_CREDS_PSW}@github.com/${GIT_CREDS_USR}/ModuleSite.git module_gen -f   
+             git request-pull v1.0 https://github.com/ryuk156/ModuleSite.git master:module_gen
             '''
                 
             }
