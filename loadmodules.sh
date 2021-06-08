@@ -26,9 +26,9 @@ git config --global user.name "ryuk156"
 
 git add .
 
-git commit -m "Modules push on $DATE"
+git pull origin master
 
-git remote add origin https://github.com/ryuk156/ModuleSite.git
+git commit -m "Modules push on $DATE"
 
 git push origin build_process
 
