@@ -10,11 +10,13 @@ cd ModuleSite
 
 rm -R modules
 
+mkdir modules
+
 cd .. 
 
 cd ..
 
-ls
+cp -r $MODULES  ./module-site/ModuleSite
 
 
 
