@@ -5,7 +5,7 @@ pipeline {
             steps {
                 echo 'start the process'
               
-                
+                cleanWs()
             }
         }
         stage('gather data') {
@@ -25,7 +25,8 @@ pipeline {
 		       GIT_CREDS = credentials('GIT')
 		    }
             steps {
-            
+            sh"bash curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+            sh"brew install hub"
             sh 'bash ./loadmodules.sh'
             sh '''
 	         cd ./module-site/ModuleSite
@@ -36,6 +37,7 @@ pipeline {
 	         git commit -m "push all modules"
              git push https://${GIT_CREDS_USR}:${GIT_CREDS_PSW}@github.com/${GIT_CREDS_USR}/ModuleSite.git module_gen -f   
              git request-pull https://github.com/MovingBlocks/ModuleSite.git master:module_gen
+             hub pull-request
             '''
                 
             }

@@ -2,6 +2,8 @@ MODULEDIR="./module-site"
 MODULES="./modules"
 DATE=$(date)
 
+
+
 mkdir $MODULEDIR
 cd $MODULEDIR
 
@@ -16,7 +18,6 @@ cd ..
 cd ..
 
 cp -r $MODULES  ./module-site/ModuleSite
-
 
 
 
