@@ -4,7 +4,7 @@ pipeline {
         stage('init') {
             steps {
                 echo 'start the process'
-                
+                cleanWs()
             }
         }
         stage('gather data') {
@@ -32,7 +32,14 @@ pipeline {
 
     
 
-              
+                         data=$(cat <<-END
+{
+  "title": "Module Generation",
+  "base": "master",
+  "head": "module_gen",
+}
+END
+)
 
 	         cd ./module-site/ModuleSite
 	         git config --global user.email "yp15601560@gmail.com"
@@ -42,12 +49,17 @@ pipeline {
              git commit -m "push all modules"
              git push https://${GIT_CREDS_USR}:${GIT_CREDS_PSW}@github.com/${GIT_CREDS_USR}/ModuleSite.git module_gen -f   
 
-             curl \
-           -X POST \
-           -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/ryuk156/ModuleSite/pulls \
-          -d '{"head":"module_gen","base":"master"}'
-              
+ 
+
+            status_code=$(curl -s --user "$GIT_CREDS_USR:$GIT_CREDS_PSW" -X POST "https://api.github.com/repos/ryuk156/ModuleSite/pulls" -d "$data" -w %{http_code} -o /dev/null)
+
+                
+       if [[ $status_code == "201" ]]; then
+         echo "Complete!"
+      else
+         echo "Error occurred, $status_code status received"
+      exit 1
+       fi
 
             '''
                 
