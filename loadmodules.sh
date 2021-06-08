@@ -26,7 +26,7 @@ git config --global user.name "ryuk156"
 
 git add .
 
-git pull origin master
+git pull origin build_process
 
 git commit -m "Modules push on $DATE"
 
