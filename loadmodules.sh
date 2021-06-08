@@ -17,20 +17,6 @@ cd ..
 
 cp -r $MODULES  ./module-site/ModuleSite
 
-cd ./module-site/ModuleSite
-
-git config --global user.email "yp15601560@gmail.com"
-
-git config --global user.name "ryuk156"
-
-
-git add .
-
-git pull origin build_process
-
-git commit -m "Modules push on $DATE"
-
-git push origin build_process
 
 
 
