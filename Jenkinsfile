@@ -4,6 +4,7 @@ pipeline {
         stage('init') {
             steps {
                 echo 'start the process'
+                cleanWs()
             }
         }
         stage('gather data') {
@@ -40,7 +41,7 @@ pipeline {
              git commit -m "push all modules"
              git push https://${GIT_CREDS_USR}:${GIT_CREDS_PSW}@github.com/${GIT_CREDS_USR}/ModuleSite.git module_gen -f   
 
-             curl -u  --user "$GIT_CREDS_USR:$GIT_CREDS_PSW" -X POST -d '{"title":"testPR","base":"master", "head":"ryuk156:module_gen"}' https://api.github.com/repos/ryuk156/ModuleSite/pulls
+             curl -u --user $GIT_CREDS_USR:$GIT_CREDS_PSW -X POST -d  -H "Accept: application/vnd.github.v3+json" '{"title":"testPR","base":"master", "head":"ryuk156:module_gen"}' https://api.github.com/repos/ryuk156/ModuleSite/pulls
             '''
                 
             }
