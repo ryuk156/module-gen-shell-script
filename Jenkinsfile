@@ -4,8 +4,6 @@ pipeline {
         stage('init') {
             steps {
                 echo 'start the process'
-              
-               
             }
         }
         stage('gather data') {
