@@ -50,7 +50,7 @@ pipeline {
             
             }
         }
-        stage('generate frontmatter') {
+        stage('clean Workspace') {
             steps {
                 cleanWs()
             }
