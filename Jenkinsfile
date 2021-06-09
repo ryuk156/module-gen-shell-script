@@ -4,7 +4,7 @@ pipeline {
         stage('init') {
             steps {
                 echo 'start the process'
-              
+              cleanWs()
             }
         }
         stage('gather data') {
@@ -34,9 +34,9 @@ pipeline {
              git add .              
              git commit -m "push all modules"
              git push https://${GIT_CREDS}@github.com/ryuk156/ModuleSite.git  module_gen -f
-             curl -i -H "Authorization: token ${GIT_CREDS}" -X POST "https://api.github.com/repos/ryuk156/ModuleSite/pulls" -d "$data"
+             curl -i -H "Authorization: token $GIT_CREDS" -X POST "https://api.github.com/repos/ryuk156/ModuleSite/pulls" -d "$data"
             '''
-            sh'bash ./openpr.sh'
+           
             
             }
         }
