@@ -4,7 +4,7 @@ pipeline {
         stage('init') {
             steps {
                 echo 'start the process'
-               
+               cleanWs()
             }
         }
         stage('gather data') {
@@ -30,20 +30,7 @@ pipeline {
             sh 'bash ./loadmodules.sh'
             sh '''
 
-             baseRepo="master"
-             headRepo="module_gen"
-             prTitle="add: Generated Modules"
-             prDesc="This Pr generate the modules from terasology  org and  generates modules ifo"
-             data=$(cat <<-END
-             {
-              "title": "$prTitle",
-              "base": "$baseRepo",
-              "head": "$headRepo",
-              "body": "$prDesc"
-             }
-              END
-             )
-
+             
 
 	         cd ./module-site/ModuleSite
 	         git config --global user.email "yp15601560@gmail.com"
@@ -51,13 +38,9 @@ pipeline {
              git checkout -b module_gen
              git add .              
              git commit -m "push all modules"
-             if git diff-index --quiet HEAD --; then
-              echo "Nothing to psuh"
-             else
-             git push https://${GIT_CREDS_USR}:${GIT_CREDS_PSW}@github.com/${GIT_CREDS_USR}/ModuleSite.git module_gen -f   
-             curl -i -H "Authorization: token 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" -X POST "https://api.github.com/repos/ryuk156/ModuleSite/pulls" -d "$data" 
-            fi
+             
             '''
+            sh'bash ./openpr.sh'
             
             }
         }
