@@ -59,9 +59,9 @@ data=$(cat <<-END
 END
 )
 
-token="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"
+apiKey="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"
 
-curl -i -u ryuk156:$token -X POST "https://api.github.com/repos/ryuk156/ModuleSite/pulls" -d "$data" 
+curl -i -H "Authorization: token $apiKey" -X POST "https://api.github.com/repos/ryuk156/ModuleSite/pulls" -d "$data" 
 
 # if [[ $status_code == "201" ]]; then
 #   echo "Complete!"
