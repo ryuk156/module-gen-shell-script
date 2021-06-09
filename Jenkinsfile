@@ -4,7 +4,7 @@ pipeline {
         stage('init') {
             steps {
                 echo 'start the process'
-              
+               cleanWs()
             }
         }
         stage('gather data') {
@@ -27,6 +27,24 @@ pipeline {
 
             sh 'bash ./loadmodules.sh'
             sh '''
+             
+
+            baseRepo="master"
+            headRepo="module_gen"
+            prTitle="add: Generated Modules"
+            prDesc="This Pr generate the modules from terasology  org and  generates modules"
+             data=$(
+                cat <<-END
+              {
+                 "title": "$prTitle",
+                  "base": "$baseRepo",
+                  "head": "$headRepo",
+                  "body": "$prDesc"
+               }
+              END
+             )
+
+
 	         cd ./module-site/ModuleSite
 	         git config --global user.email "yp15601560@gmail.com"
              git config --global user.name "ryuk156" 
