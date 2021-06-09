@@ -48,6 +48,7 @@
 # check_is_set "title" $title
 
 # this is called a heredoc. Read more about them here: http://tldp.org/LDP/abs/html/here-docs.html
+
 data=$(cat <<-END
 {
   "title": "$title",
