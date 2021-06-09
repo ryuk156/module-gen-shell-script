@@ -34,21 +34,32 @@ if [ -f "$FILE" ]; then
     echo "Readme Not Found"
   fi
 
-  logoSrc="./logo.png"
-  coverSrc="./cover.png"
+  defaultLogo="../../logo.png"
+  logoSrcP="./logo.png"
+  logoSrcJ="./logo.jpg"
+  coverSrcP="./cover.png"
+  coverSrcJ="./cover.jpg"
 
-  if [ -f "$logoSrc" ]; then
+  if [ -f "$logoSrcP" ]; then
     logodst="$INDEXDIR""$moduleName"
-    cp $logoSrc $logodst
+    cp $logoSrcP $logodst
     echo "Logo Image copy done"
-
-  elif [ -f "$coverSrc" ]; then
+  elif [ -f "$logoSrcJ" ]; then
+    logodst="$INDEXDIR""$moduleName"
+    cp $logoSrcJ $logodst
+    echo "Logo Image copy done"
+  elif [ -f "$coverSrcP" ]; then
     coverdst="$INDEXDIR""$moduleName"
-    cp $coverSrc $coverdst
+    cp $coverSrcP $coverdst
     echo "Cover Image copy done"
-
+  elif [ -f "$coverSrcJ" ]; then
+    coverdst="$INDEXDIR""$moduleName"
+    cp $coverSrcJ $coverdst
+    echo "Cover Image copy done"
   else
-    echo "LOGO or COVER image not found"
+    coverdst="$INDEXDIR""$moduleName"
+    cp $defaultLogo $coverdst
+    echo "LOGO or COVER image not found, Resolved With default LOGO"
   fi
 
 else

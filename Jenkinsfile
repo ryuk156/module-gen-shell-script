@@ -27,7 +27,6 @@ pipeline {
 
             sh 'bash ./loadmodules.sh'
             sh '''
-        
 	        cd ./module-site/ModuleSite
 	        git config --global user.email "yp15601560@gmail.com"
             git config --global user.name "ryuk156" 
@@ -44,9 +43,7 @@ pipeline {
             else
                echo "no changes";
             fi   
-              
             '''
-           
             
             }
         }

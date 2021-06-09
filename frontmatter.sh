@@ -9,12 +9,22 @@ for i in $(ls -d ./meta-data/*); do
 
   moduleFile="$i"/module.txt
   if [ -f "$moduleFile" ]; then
+
     moduleName=$(cat "$moduleFile" | grep -Po '"id" *\K: *\K"[^"]*"' | sed 's/"//g' | head -n1)
     moduleAuthor=$(cat "$moduleFile" | grep -Po '"author" *\K: *\K"[^"]*"' | sed 's/"//g')
     moduleDisplayname=$(cat "$moduleFile" | grep -Po '"displayName" *\K: *\K"[^"]*"' | sed 's/"//g')
     moduleDescription=$(cat "$moduleFile" | grep -Po '"description" *\K: *\K"[^"]*"' | sed 's/"//g')
-    moduleLogo="$i"/logo.png
-    modulecover="$i"/cover.png
+    gameplay=$(cat "$moduleFile" | grep -Po '"isGameplay" *\K: *\K[^"]*' | sed 's/,//g')
+    asset=$(cat "$moduleFile" | grep -Po '"isAsset" *\K: *\K[^"]*' | sed 's/,//g')
+    # library=$(cat "$moduleFile" | grep -Po '"isLibrary" *\K: *\K[^"]*' | sed 's/,//g')
+    # serverside=$(cat "$moduleFile" | grep -Po '"serverSideOnly" *\K: *\K[^"]*' | sed 's/,//g')
+    # specific=$(cat "$moduleFile" | grep -Po '"isSpecific" *\K: *\K[^"]*' | sed 's/,//g')
+    # augment=$(cat "$moduleFile" | grep -Po '"isAugmentation" *\K: *\K[^"]*' | sed 's/,//g')
+
+    moduleLogoP="$i"/logo.png
+    moduleLogoJ="$i"/logo.jpg
+    modulecoverP="$i"/cover.png
+    modulecoverj="$i"/cover.jpg
     modulereadme="$i"/README.md
 
     mkdir "$DST"/"$moduleName"
@@ -24,15 +34,35 @@ for i in $(ls -d ./meta-data/*); do
     echo "title: \"$moduleDisplayname\"" >>"$DST"/"$moduleName"/index.md
     echo "author: \"$moduleAuthor\"" >>"$DST"/"$moduleName"/index.md
 
-    if [ -f "$moduleLogo" ]; then
-      cp $moduleLogo "$DST"/"$moduleName"
+    if [ -f "$moduleLogoP" ]; then
+      cp $moduleLogoP "$DST"/"$moduleName"
       echo "logo: \"./logo.png\"" >>"$DST"/"$moduleName"/index.md
-    elif [ -f "$modulecover" ]; then
-      cp $modulecover "$DST"/"$moduleName"
+    elif [ -f "$moduleLogoJ" ]; then
+      cp $moduleLogoJ "$DST"/"$moduleName"
+      echo "logo: \"./logo.png\"" >>"$DST"/"$moduleName"/index.md
+    elif [ -f "$modulecoverP" ]; then
+      cp $modulecoverP "$DST"/"$moduleName"
+      echo "cover: \"./cover.png\"" >>"$DST"/"$moduleName"/index.md
+    elif [ -f "$modulecoverJ" ]; then
+      cp $modulecoverJ "$DST"/"$moduleName"
       echo "cover: \"./cover.png\"" >>"$DST"/"$moduleName"/index.md
     else
       echo "No logo or cover image"
     fi
+
+    moduleCat=()
+
+    if [ $gameplay ]; then
+      moduleCat+=('Gameplay Template')
+    fi
+    if [ $asset ]; then
+      moduleCat+=('Asset')
+    fi
+    if [ ${#modulecat[*]} == 0 ]; then
+      moduleCat+=('Logic')
+    fi
+
+    echo "Tag: \"${moduleCat[@]}\"" >>"$DST"/"$moduleName"/index.md
     echo "---" >>"$DST"/"$moduleName"/index.md
 
     if [ -f "$modulereadme" ]; then
