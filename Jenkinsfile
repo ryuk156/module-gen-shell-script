@@ -27,16 +27,12 @@ pipeline {
 
             sh 'bash ./loadmodules.sh'
             sh '''
-            #!/bin/sh
-             
-
-           
-            
-	         cd ./module-site/ModuleSite
-	         git config --global user.email "yp15601560@gmail.com"
-             git config --global user.name "ryuk156" 
-             git checkout -b module_gen
-             git add .           
+        
+	        cd ./module-site/ModuleSite
+	        git config --global user.email "yp15601560@gmail.com"
+            git config --global user.name "ryuk156" 
+            git checkout -b module_gen
+            git add .           
              
             if [ -n "$(git status --porcelain)" ]; then
             git commit -m "push all modules"
@@ -45,16 +41,18 @@ pipeline {
                   "base": "master",
                   "head": "module_gen",
                   "body": "$module generation"}'
-          else
-            echo "no changes";
-          fi   
-            
-
-
-            
+            else
+               echo "no changes";
+            fi   
+              
             '''
            
             
+            }
+        }
+        stage('generate frontmatter') {
+            steps {
+                cleanWs()
             }
         }
     }
