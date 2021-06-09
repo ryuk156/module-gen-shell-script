@@ -3,19 +3,18 @@
 baseRepo="master"
 headRepo="module_gen"
 prTitle="add: Generated Modules"
-prDesc="This Pr generate the modules from terasology  org and  generates modules ifo"
-             
-             
+prDesc="This Pr generate the modules from terasology  org and  generates modules"
 
-
-data=$(cat <<-END
+data=$(
+    cat <<-END
 {
-"title": "$prTitle",
-"base": "$baseRepo",
-"head": "$headRepo",
-"body": "$prDesc"
+  "title": "$prTitle",
+  "base": "$baseRepo",
+  "head": "$headRepo",
+  "body": "$prDesc"
 }
-END )
+END
+)
 
 if git diff-index --quiet HEAD --; then
     echo "Nothing to psuh"
