@@ -9,13 +9,13 @@ git clone https://github.com/ryuk156/ModuleSite.git
 
 cd ModuleSite
 
-# rm -R modules
+rm -R modules
 
-# cd .. 
+cd .. 
 
-# cd ..
+cd ..
 
-# cp -r $MODULES  ./module-site/ModuleSite
+cp -r $MODULES  ./module-site/ModuleSite
 
 
 
