@@ -4,7 +4,7 @@ pipeline {
         stage('init') {
             steps {
                 echo 'start the process'
-               
+               cleanWs()
             }
         }
         stage('gather data') {
@@ -30,10 +30,7 @@ pipeline {
             #!/bin/sh
              
 
-            baseRepo="master"
-            headRepo="module_gen"
-            prTitle="add: Generated Modules"
-            prDesc="This Pr generate the modules from terasology  org and  generates modules"
+           
             
 	         cd ./module-site/ModuleSite
 	         git config --global user.email "yp15601560@gmail.com"
@@ -42,10 +39,10 @@ pipeline {
              git add .              
              git commit -m "push all modules"
              git push https://${GIT_CREDS}@github.com/ryuk156/ModuleSite.git  module_gen -f
-             curl -i -H "Authorization: token $GIT_CREDS" -X POST "https://api.github.com/repos/ryuk156/ModuleSite/pulls" -d '{ "title": "$prTitle",
-                  "base": "$baseRepo",
-                  "head": "$headRepo",
-                  "body": "$prDesc"}'
+             curl -i -H "Authorization: token $GIT_CREDS" -X POST "https://api.github.com/repos/ryuk156/ModuleSite/pulls" -d '{ "title": "module generation",
+                  "base": "master",
+                  "head": "module_gen",
+                  "body": "$module generation"}'
             '''
            
             
