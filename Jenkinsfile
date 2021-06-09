@@ -4,7 +4,7 @@ pipeline {
         stage('init') {
             steps {
                 echo 'start the process'
-               
+               cleanWs()
             }
         }
         stage('gather data') {
@@ -26,7 +26,8 @@ pipeline {
             steps {
 
             sh 'bash ./loadmodules.sh'
-            sh '''#!/bin/sh
+            sh '''
+            #!/bin/sh
              
 
             baseRepo="master"
