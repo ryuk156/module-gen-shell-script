@@ -24,9 +24,14 @@ pipeline {
 		    }
             steps {
 
+            DATE = sh(
+               returnStdout: true, 
+              script: 'date'
+             )
+
             sh 'bash ./loadmodules.sh'
             sh '''
-            Date=$(date +%F)
+            Date=date +%F
 	        cd ./module-site/ModuleSite
 	        git config --global user.email "yp15601560@gmail.com"
             git config --global user.name "ryuk156" 
@@ -36,10 +41,10 @@ pipeline {
             if [ -n "$(git status --porcelain)" ]; then
             git commit -m "push all modules"
             git push https://${GIT_CREDS}@github.com/ryuk156/ModuleSite.git  module_gen -f
-            curl -i -H "Authorization: token $GIT_CREDS" -X POST "https://api.github.com/repos/ryuk156/ModuleSite/pulls" -d '{ "title": "module generation on ${Date}",
+            curl -i -H "Authorization: token $GIT_CREDS" -X POST "https://api.github.com/repos/ryuk156/ModuleSite/pulls" -d '{ "title": "module generation on ${DATE}",
                   "base": "master",
                   "head": "module_gen",
-                  "body": "$module generation ${Date}"}'
+                  "body": "Module generation ${DATE}"}'
             else
                echo "no changes";
             fi   
