@@ -22,7 +22,6 @@ for i in $(ls -d ./meta-data/*); do
     library=$(cat "$moduleFile" | grep -Po '"isLibrary" *\K: *\K[^"]*' | sed 's/,//g')
     asset=$(cat "$moduleFile" | grep -Po '"isAsset" *\K: *\K[^"]*' | sed 's/,//g')
     specific=$(cat "$moduleFile" | grep -Po '"isSpecific" *\K: *\K[^"]*' | sed 's/,//g')
-    
 
     moduleLogoP="$i"/logo.png
     moduleLogoJ="$i"/logo.jpg
@@ -77,9 +76,10 @@ for i in $(ls -d ./meta-data/*); do
       moduleCat+=('Specific')
     fi
 
-    
+    if [ ${#moduleCat[*]} >0]; then
+      echo "Tag: \"${moduleCat[0]}\"" >>"$DST"/"$moduleName"/index.md
+    fi
 
-    echo "Tag: \"${moduleCat[0]}\"" >>"$DST"/"$moduleName"/index.md
     echo "---" >>"$DST"/"$moduleName"/index.md
 
     if [ -f "$modulereadme" ]; then
