@@ -36,10 +36,10 @@ pipeline {
             if [ -n "$(git status --porcelain)" ]; then
             git commit -m "push all modules"
             git push https://${GIT_CREDS}@github.com/ryuk156/ModuleSite.git  module_gen -f
-            curl -i -H "Authorization: token $GIT_CREDS" -X POST "https://api.github.com/repos/ryuk156/ModuleSite/pulls" -d '{ "title": "module generation on $Date",
+            curl -i -H "Authorization: token $GIT_CREDS" -X POST "https://api.github.com/repos/ryuk156/ModuleSite/pulls" -d '{ "title": "module generation on ${Date}",
                   "base": "master",
                   "head": "module_gen",
-                  "body": "$module generation $Date"}'
+                  "body": "$module generation ${Date}"}'
             else
                echo "no changes";
             fi   
