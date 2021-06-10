@@ -24,10 +24,7 @@ pipeline {
 		    }
             steps {
 
-           script {
-         DATE_TAG = java.time.LocalDate.now()
-       DATETIME_TAG = java.time.LocalDateTime.now()
-         }
+          
 
             sh 'bash ./loadmodules.sh'
             sh '''#!/bin/bash
@@ -42,10 +39,10 @@ pipeline {
             if [ -n "$(git status --porcelain)" ]; then
             git commit -m "push all modules"
             git push https://${GIT_CREDS}@github.com/ryuk156/ModuleSite.git  module_gen -f
-            curl -i -H "Authorization: token $GIT_CREDS" -X POST "https://api.github.com/repos/ryuk156/ModuleSite/pulls" -d '{ "title": "Module generation ${DATETIME_TAG}",
+            curl -i -H "Authorization: token $GIT_CREDS" -X POST "https://api.github.com/repos/ryuk156/ModuleSite/pulls" -d '{ "title": "Module generation ",
                   "base": "master",
                   "head": "module_gen",
-                  "body": "Module generation ${DATETIME_TAG}"}'
+                  "body": "Module generation "}'
             else
                echo "no changes";
             fi   
