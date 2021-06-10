@@ -11,11 +11,11 @@ for i in $(ls -d ./meta-data/*); do
   if [ -f "$moduleFile" ]; then
 
     moduleName=$(cat "$moduleFile" | grep -Po '"id" *\K: *\K"[^"]*"' | sed 's/"//g' | head -n1)
-    moduleAuthor=$(cat "$moduleFile" | grep -Po '"author" *\K: *\K"[^"]*"' | sed 's/"//g')
     moduleDisplayname=$(cat "$moduleFile" | grep -Po '"displayName" *\K: *\K"[^"]*"' | sed 's/"//g')
     moduleDescription=$(cat "$moduleFile" | grep -Po '"description" *\K: *\K"[^"]*"' | sed 's/"//g')
+    moduleAuthor=$(cat "$moduleFile" | grep -Po '"author" *\K: *\K"[^"]*"' | sed 's/"//g')
 
-    # serverside=$(cat "$moduleFile" | grep -Po '"serverSideOnly" *\K: *\K[^"]*' | sed 's/,//g')
+    serverside=$(cat "$moduleFile" | grep -Po '"isServerSideOnly" *\K: *\K[^"]*' | sed 's/,//g')
     gameplay=$(cat "$moduleFile" | grep -Po '"isGameplay" *\K: *\K[^"]*' | sed 's/,//g')
     world=$(cat "$moduleFile" | grep -Po '"isWorld" *\K: *\K[^"]*' | sed 's/,//g')
     augment=$(cat "$moduleFile" | grep -Po '"isAugmentation" *\K: *\K[^"]*' | sed 's/,//g')
@@ -35,7 +35,7 @@ for i in $(ls -d ./meta-data/*); do
     echo "---" >"$DST"/"$moduleName"/index.md
     echo "posttype:  \"module\"  " >>"$DST"/"$moduleName"/index.md
     echo "title: \"$moduleDisplayname\"" >>"$DST"/"$moduleName"/index.md
-    echo "author: \"$moduleAuthor\"" >>"$DST"/"$moduleName"/index.md
+    echo "description: \"$moduleDescription\"" >>"$DST"/"$moduleName"/index.md
 
     if [ -f "$moduleLogoP" ]; then
       cp $moduleLogoP "$DST"/"$moduleName"
@@ -55,6 +55,9 @@ for i in $(ls -d ./meta-data/*); do
 
     moduleCat=()
 
+    if [ $server ]; then
+      moduleCat+=('Server')
+    fi
     if [ $gameplay ]; then
       moduleCat+=('Gameplay Template')
     fi
@@ -65,13 +68,13 @@ for i in $(ls -d ./meta-data/*); do
       moduleCat+=('Augment')
     fi
     if [ $library ]; then
-      moduleCat+=('library')
+      moduleCat+=('Library')
     fi
     if [ $asset ]; then
       moduleCat+=('Asset')
     fi
     if [ $specific ]; then
-      moduleCat+=('specific')
+      moduleCat+=('Specific')
     fi
 
     
